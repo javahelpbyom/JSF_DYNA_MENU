@@ -2,12 +2,12 @@
 
 <ns2:menu xmlns:ns2="omp.jhp.menu" version="1.0">
     <menuList>
-        <menuItem label="Home" id="home" path="index.xhtml" actionMethod="#"/>
-        <menuItem label="JavaEE" id="JavaEE" path="#" actionMethod="#">
+        <menuItem label="Home" id="home" path="#" actionMethod="#" beanName="" />
+        <menuItem label="JavaEE" id="JavaEE" path="#" actionMethod="doLogin" beanName="login">
             <menuList>
-                <menuItem label="JSF" id="JSF" path="#" actionMethod=""/>
-                <menuItem label="EJB" id="EJB" path="#" actionMethod=""/>
-                <menuItem label="JMS" id="JMS" path="#" actionMethod=""/>
+                <menuItem label="JSF" id="JSF" path="#" actionMethod="gotoPage" beanName="jsfBean"/>
+                <menuItem label="EJB" id="EJB" path="#" actionMethod="gotoPage" beanName="jsfBean"/>
+                <menuItem label="JMS" id="JMS" path="#" actionMethod="gotoPage" beanName="jsfBean"/>
              </menuList>
           </menuItem>
     </menuList>

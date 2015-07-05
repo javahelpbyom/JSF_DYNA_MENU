@@ -1,6 +1,7 @@
 package omp.jsf.bean;
 
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -21,6 +22,8 @@ import omp.jsf.xml.dto.MenuItem;
 public class MenuBean {
 
 	private List<MenuItem> menuList;
+	private String beanMethod;
+	private String beanAction;
 	
 	public List<MenuItem> getMenuList() {
 		return menuList;
@@ -43,7 +46,44 @@ public class MenuBean {
 			ex.setStackTrace(null);
 		}
 	}
+	private String callMethod(String methodName, String beanName) {
+		Object obj = getBeanObject(beanName);
+		String returnS = "";
+		try {
+			if(obj!=null) {
+				Method method = obj.getClass().getDeclaredMethod(methodName,null);
+				returnS  = (String)method.invoke(obj);
+			}
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return returnS;
+	}
 	
+	private Object getBeanObject(String beanName) {
+		Object obj = findBean(beanName);
+		return obj;
+	}
+	
+	public static <T> T findBean(String beanName) {
+	    FacesContext context = FacesContext.getCurrentInstance();
+	    return (T) context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "}", Object.class);
+	}
+	public String triggerAction() {
+		System.out.println("Trigger action called");
+		String forwardName = callMethod(this.getBeanMethod(), this.getBeanAction());
+		//filterMenuList(this.getSubMenuParentId());
+		System.out.println("Forward is "+forwardName);
+		return forwardName;
+	}
 	private void loadXML() throws JAXBException {
 		System.out.println("load xml called");
 		ExternalContext externalContext =  FacesContext.getCurrentInstance().getExternalContext();
@@ -56,13 +96,33 @@ public class MenuBean {
 		this.menuList = menu.getChildList();
 		System.out.println("Menu list is "+this.menuList.toString());
 		for(MenuItem menuItem:menuList) {
-			System.out.println(menuItem.getLabel());
+			System.out.println(menuItem.getLabel()+""+menuItem.getId());
 			if(menuItem.getChildList()!=null) {
 				for(MenuItem childMenuItem:menuItem.getChildList()) {
-					System.out.println("Chile Menu Item is "+childMenuItem.getLabel());
+					System.out.println("Chile Menu Item is "+childMenuItem.getLabel()+""+childMenuItem.getId());
 				}
 			}
 		}
+	}
+	
+	public String callAction() {
+		return "";
+	}
+
+	public String getBeanMethod() {
+		return beanMethod;
+	}
+
+	public void setBeanMethod(String beanMethod) {
+		this.beanMethod = beanMethod;
+	}
+
+	public String getBeanAction() {
+		return beanAction;
+	}
+
+	public void setBeanAction(String beanAction) {
+		this.beanAction = beanAction;
 	}
 	
 }

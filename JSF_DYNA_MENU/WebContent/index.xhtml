@@ -7,14 +7,8 @@
     <ui:define name="menu">
     </ui:define>
     <ui:define name="content">
-        <h1>Menu Can be made dynamic using JSF</h1>
-
-        <div>
-            <p>Your JSF Version is 2.0</p>
-        </div>
-
         <h:form id="reg">
-            <h2>Member Registration</h2>
+            <h2 style="padding-right: 300px;">Login</h2>
             <h:panelGrid columns="3" columnClasses="titleCell">
                 <h:outputLabel for="name" value="Name:" />
                 <h:inputText id="name" value="#{login.userId}" />
@@ -29,7 +23,7 @@
                 <h:panelGrid columns="2">
                     <h:commandButton id="register"
                         action="#{login.doLogin}"
-                        value="Register" styleClass="register" />
+                        value="Login" styleClass="register" />
                     <h:messages styleClass="messages"
                         errorClass="invalid" infoClass="valid"
                         warnClass="warning" globalOnly="true" />

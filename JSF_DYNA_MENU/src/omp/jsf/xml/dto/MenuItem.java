@@ -16,10 +16,12 @@ public class MenuItem {
     private String path;
     private String target;
     private String actionMethod;
+    private String beanName;
     private ArrayList<MenuItem> childList;
     private MenuItem parent = null;
+    private boolean isHasChildren;
 
-    public MenuItem() {
+	public MenuItem() {
     }
 
     public MenuItem(MenuItem item) {
@@ -53,12 +55,16 @@ public class MenuItem {
         this.childList = childList;
     }
 
-    public boolean hasChildren() {
-        boolean childFlag = false;
+    public boolean getIsHasChildren() {
+    	return isHasChildren();
+    }
+    
+    public boolean isHasChildren() {
+        isHasChildren = false;
         if (!(this.childList.isEmpty())) {
-            childFlag = true;
+        	isHasChildren = true;
         }
-        return childFlag;
+        return isHasChildren;
     }
 
     @XmlAttribute
@@ -149,6 +155,18 @@ public class MenuItem {
 
 	public void setActionMethod(String actionMethod) {
 		this.actionMethod = actionMethod;
+	}
+
+	public void setHasChildren(boolean isHasChildren) {
+		this.isHasChildren = isHasChildren;
+	}
+	@XmlAttribute
+	public String getBeanName() {
+		return beanName;
+	}
+
+	public void setBeanName(String beanName) {
+		this.beanName = beanName;
 	}
 
  

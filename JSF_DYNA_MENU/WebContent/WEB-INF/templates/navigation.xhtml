@@ -4,18 +4,35 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html">
-    
+    <h:form id="navigation">
     <div id="navigation">
     	<ul>
-    		<li><a href="#">Home</a></li>
-    		<li><a href="#">JAVAEE</a>
-    			<ul>
-    				<li><a href="#">JSF</a></li>
-    				<li><a href="#">EJB</a></li>
-    			</ul>
-    		</li>
+    		<ui:repeat var="parentMenuItem" value="#{menuBean.menuList}" varStatus="status">
+    			<h:panelGroup rendered="#{parentMenuItem.isHasChildren != true}">
+    				<li>
+    					<h:commandLink value="#{parentMenuItem.label}"  action="#{menuBean.triggerAction}">
+    						<f:setPropertyActionListener target="#{menuBean.beanAction}" value="#{parentMenuItem.beanName}" />
+    						<f:setPropertyActionListener target="#{menuBean.beanMethod}" value="#{parentMenuItem.actionMethod}" />
+    					</h:commandLink>
+    				</li>
+    			</h:panelGroup>
+    			<h:panelGroup rendered="#{parentMenuItem.isHasChildren}">
+    				<li><a href="#">#{parentMenuItem.label}</a>
+	    				<ul>
+			    			<ui:repeat var="childMenuItem" value="#{parentMenuItem.childList}" varStatus="childStatus">
+					    		<li>
+					    			<h:commandLink value="#{childMenuItem.label}" action="#{menuBean.triggerAction}">
+					    				<f:setPropertyActionListener target="#{menuBean.beanAction}" value="#{childMenuItem.beanName}" />
+    									<f:setPropertyActionListener target="#{menuBean.beanMethod}" value="#{childMenuItem.actionMethod}"/>
+					    			</h:commandLink>
+					    		</li>
+				    		</ui:repeat>
+			    		</ul>
+		    		</li>
+	    		</h:panelGroup>
+    		</ui:repeat>
     	</ul>
     </div>
-    
+    </h:form>
     
 </ui:composition>
