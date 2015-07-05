@@ -16,11 +16,11 @@
         <h:form id="reg">
             <h2>Member Registration</h2>
             <h:panelGrid columns="3" columnClasses="titleCell">
-                <h:outputLabel for="name" value="Name: #{facesContext.externalContext.requestContextPath}" />
+                <h:outputLabel for="name" value="Name:" />
                 <h:inputText id="name" value="#{login.userId}" />
                 <h:message for="name" errorClass="invalid" />
 
-                <h:outputLabel for="pwd" value="Email:" />
+                <h:outputLabel for="pwd" value="Password:" />
                 <h:inputSecret id="pwd" value="#{login.password}" />
                 <h:message for="pwd" errorClass="invalid" />
             </h:panelGrid>

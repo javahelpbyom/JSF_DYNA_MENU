@@ -55,6 +55,14 @@ public class MenuBean {
 		
 		this.menuList = menu.getChildList();
 		System.out.println("Menu list is "+this.menuList.toString());
+		for(MenuItem menuItem:menuList) {
+			System.out.println(menuItem.getLabel());
+			if(menuItem.getChildList()!=null) {
+				for(MenuItem childMenuItem:menuItem.getChildList()) {
+					System.out.println("Chile Menu Item is "+childMenuItem.getLabel());
+				}
+			}
+		}
 	}
 	
 }

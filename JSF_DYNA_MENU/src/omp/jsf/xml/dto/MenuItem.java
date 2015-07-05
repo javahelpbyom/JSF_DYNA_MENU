@@ -11,13 +11,11 @@ import java.util.ArrayList;
 @XmlRootElement(name = "menuItem")
 public class MenuItem {
 
-    private String type;
-    private String name;
+    private String id;
     private String label;
     private String path;
     private String target;
-    private String title;
-    private Boolean external;
+    private String actionMethod;
     private ArrayList<MenuItem> childList;
     private MenuItem parent = null;
 
@@ -26,13 +24,9 @@ public class MenuItem {
 
     public MenuItem(MenuItem item) {
         super();
-        this.type = item.getType();
-        this.name = item.getName();
         this.label = item.getLabel();
         this.path = item.getPath();
         this.target = item.getTarget();
-        this.title = item.getTitle();
-        this.external = item.getExternal();
 
         if (null != item.getChildList()) {
             this.childList = new ArrayList<MenuItem>();
@@ -68,24 +62,6 @@ public class MenuItem {
     }
 
     @XmlAttribute
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    @XmlAttribute
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @XmlAttribute
     public String getLabel() {
         return label;
     }
@@ -112,30 +88,13 @@ public class MenuItem {
         this.target = target;
     }
 
-    @XmlAttribute
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    @XmlAttribute
-    public Boolean getExternal() {
-        return external;
-    }
-
-    public void setExternal(Boolean external) {
-        this.external = external;
-    }
 
     // TODO make MenuItem Comparable
-    public MenuItem getChildByName(String name) {
+    public MenuItem getChildByName(String id) {
 
         MenuItem result = null;
         for (MenuItem menu : this.getChildList()) {
-            if (menu.getName().equalsIgnoreCase(name)) {
+            if (menu.getId().equalsIgnoreCase(id)) {
                 result = menu;
             }
         }
@@ -153,13 +112,9 @@ public class MenuItem {
     }
 
     public void empty() {
-        this.type = null;
-        this.name = null;
         this.label = null;
         this.path = null;
         this.target = null;
-        this.title = null;
-        this.external = null;
 
     }
 
@@ -168,21 +123,33 @@ public class MenuItem {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((childList == null) ? 0 : childList.hashCode());
-        result = prime * result + ((external == null) ? 0 : external.hashCode());
         result = prime * result + ((label == null) ? 0 : label.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((parent == null) ? 0 : parent.hashCode());
         result = prime * result + ((path == null) ? 0 : path.hashCode());
         result = prime * result + ((target == null) ? 0 : target.hashCode());
-        result = prime * result + ((title == null) ? 0 : title.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "MenuItem [type=" + type + ", name=" + name + ", title=" + title + ", parent=" + parent + "]";
+        return "MenuItem [actionMethod=" + actionMethod + ", id=" + id + ", label=" + label + ", parent=" + parent + "]";
     }
+    @XmlAttribute
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	@XmlAttribute
+	public String getActionMethod() {
+		return actionMethod;
+	}
+
+	public void setActionMethod(String actionMethod) {
+		this.actionMethod = actionMethod;
+	}
 
  
 }
